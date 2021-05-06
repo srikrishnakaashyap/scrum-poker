@@ -1,8 +1,10 @@
 const express = require('express');
-
 const http = require('http');
 const socketio = require('socket.io');
 const path = require('path');
+
+const {userJoin, getCurrentUser, userLeave, getRoomUsers} = require('./utils/users')
+const {valueJoin, getAllValuesInARoom, removeValue} = require('./utils/values')
 
 const app = express();
 const server = http.createServer(app);
@@ -10,33 +12,38 @@ const io = socketio(server);
 
 app.use(express.static(path.join(__dirname, 'public')));
 
-var map = new Map()
-
-// [{"username": value}]
-
 io.on('connection', socket => {
-  socket.emit('message', 'Welcome');
-  socket.broadcast.emit('message', 'A user has joined the chat');
 
-  // io.emit();
+  socket.on('joinRoom', ({username, room}) => {
+
+    const user = userJoin(socket.id, username, room);
+
+    socket.join(user.room);
+
+    socket.emit('message', 'Welcome to Scrum Poker');
+
+    socket.broadcast.to(user.room).emit('message', `${user.username} has joined the room`);
+  
+    socket.on('selected', ({username, room, button}) => {
+      const value = valueJoin(socket.id, username, room, button)
+    });
+  
+    socket.on('display', (room) => {
+      const users = getAllValuesInARoom(room);
+      io.to(user.room).emit('getAllValues', users);
+    });
+
+  });
+
+
   socket.on('disconnect', () => {
 
-    io.emit('message', 'A user has left the chat');
+    const user = userLeave(socket.id);
+    if(user){
+      const value = removeValue(socket.id);
+      io.to(user.room).emit('message', `${user.username} has left the room`);
+    }
   })
-
-  socket.on('selected', (msg) => {
-
-    map[msg.userName] = msg.value;
-    console.log(map);
-
-  });
-
-  socket.on('display', () => {
-    io.emit('map', map);
-    map = new Map();
-  });
-
-
 
 })
 
