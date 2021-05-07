@@ -2,15 +2,25 @@ const values = [];
 
 function valueJoin(id, username, room, selectedValue) {
 
-  const value = {id, username, room, selectedValue};
+  const index = values.findIndex(value => value.id === id);
 
-  values.push(value);
-
-  return value;
+  if(index == -1){
+    const value = {id, username, room, selectedValue};
+    values.push(value);
+    return value;
+  }
+  else{
+    const value = values.splice(index, 1)[0];
+    value.selectedValue = selectedValue;
+    values.push(value)
+    return value;
+  }
 }
 
 function getAllValuesInARoom(room){
-  return values.filter(value => value.room === room);
+  const answer = values.filter(value => value.room === room);
+  console.log(answer);
+  return answer;
 }
 
 function removeValue(id) {
