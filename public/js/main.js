@@ -1,16 +1,12 @@
+// const chatMessages = document.querySelector('.chat-messages');
 
-const chatMessages = document.querySelector('.chat-messages');
-
-const chatForm = document.getElementById('chat-form');
+// const chatForm = document.getElementById('chat-form');
 
 const { username, room } = Qs.parse(location.search, {
   ignoreQueryPrefix: true
 });
 
-console.log(username);
 const socket = io();
-
-socket.emit('joinRoom', {username, room});
 
 socket.on('getAllValues', (values) => {
 
@@ -52,6 +48,7 @@ socket.on('message', message => {
 
 function clicked(button){
   button = button.toString();
+  console.log(button);
   socket.emit('selected', {username, room, button});
 }
 
