@@ -16,26 +16,29 @@ socket.on('getAllValues', (values) => {
 
   var x = document.createElement("TABLE");
   x.setAttribute("id", "myTable");
-  document.body.appendChild(x);
+
+  const container = document.getElementById('chat-container');
+
+  container.appendChild(x);
 
 
   let count = 0;
   Object.entries(values).forEach(item => {
 
     var row = document.createElement("TR");
-    console.log(row);
+    console.log(item);
     row.setAttribute("id", `myTr${count}`);
     document.getElementById("myTable").appendChild(row);
 
     var userCol = document.createElement("TD");
-    var userVal = document.createTextNode(item[0]);
+    var userVal = document.createTextNode(item[1].username);
     var valueCol = document.createElement("TD");
-    var valueVal = document.createTextNode(item[1]);
+    var valueVal = document.createTextNode(item[1].selectedValue);
     userCol.appendChild(userVal);
     valueCol.appendChild(valueVal);
 
     document.getElementById(`myTr${count}`).appendChild(userCol);
-    console.log(row);
+    // console.log(row);
     document.getElementById(`myTr${count}`).appendChild(valueCol);
     count = count + 1;
   })

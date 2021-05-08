@@ -178,6 +178,18 @@ a {
 	width: 100%;
 }
 
+.emgAoH {
+	background: rgb(196, 196, 196);
+	border-radius: 30px;
+	width: 74px;
+	height: 74px;
+	font-size: 24px;
+	color: rgb(62, 76, 97);
+	font-weight: bold;
+	border: 0px;
+	position: relative;
+}
+
 .CardSelector-module--card-list--9ibgT .CardSelector-module--card--3iV5R {
 	margin: 0 .8rem;
 	display: inline-block;
