@@ -6,6 +6,13 @@ const { username, room } = Qs.parse(location.search, {
   ignoreQueryPrefix: true
 });
 
+window.addEventListener('load', function () {
+
+  socket.emit('joinRoom', {username, room})
+  
+})
+
+
 const socket = io();
 
 socket.on('getAllValues', (values) => {
@@ -22,7 +29,6 @@ socket.on('getAllValues', (values) => {
   Object.entries(values).forEach(item => {
 
     var row = document.createElement("TR");
-    console.log(item);
     row.setAttribute("id", `myTr${count}`);
     document.getElementById("myTable").appendChild(row);
 
@@ -34,7 +40,6 @@ socket.on('getAllValues', (values) => {
     valueCol.appendChild(valueVal);
 
     document.getElementById(`myTr${count}`).appendChild(userCol);
-    // console.log(row);
     document.getElementById(`myTr${count}`).appendChild(valueCol);
     count = count + 1;
   })
@@ -42,13 +47,11 @@ socket.on('getAllValues', (values) => {
 })
 
 socket.on('message', message => {
-  console.log(message);
 });
 
 
 function clicked(button){
   button = button.toString();
-  console.log(button);
   socket.emit('selected', {username, room, button});
 }
 

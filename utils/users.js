@@ -6,8 +6,6 @@ function userJoin(id, username, room) {
 
   users.push(user);
 
-  console.log(users);
-
   return user;
 }
 

@@ -38,8 +38,6 @@ io.on('connection', socket => {
 
   socket.on('joinRoom', ({username, room}) => {
 
-    console.log("INSIDE JOIN ROOM")
-
     const user = userJoin(socket.id, username, room);
 
     socket.join(user.room);
@@ -49,7 +47,7 @@ io.on('connection', socket => {
     socket.broadcast.to(user.room).emit('message', `${user.username} has joined the room`);
   
     socket.on('selected', ({username, room, button}) => {
-      console.log(button);
+
       const value = valueJoin(socket.id, username, room, button)
     });
   
@@ -63,10 +61,7 @@ io.on('connection', socket => {
 
   socket.on('disconnect', () => {
 
-    console.log("INSIDE DISCONNECT");
-
     const user = userLeave(socket.id);
-    console.log(user);
     if(user){
       const value = removeValue(socket.id);
       io.to(user.room).emit('message', `${user.username} has left the room`);
