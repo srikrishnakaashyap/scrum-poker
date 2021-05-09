@@ -8,6 +8,12 @@ const { username, room } = Qs.parse(location.search, {
 
 window.addEventListener('load', function () {
 
+  const roomName = document.getElementById("room-name");
+
+  roomName.innerHTML = room;
+
+  populateUsers();
+
   socket.emit('joinRoom', {username, room})
   
 })
@@ -47,6 +53,13 @@ socket.on('getAllValues', (values) => {
 })
 
 socket.on('message', message => {
+
+  console.log(message);
+});
+
+socket.on('userChange', ({userName, type, roomUsers}) => {
+
+  populateUsers(userName, type, roomUsers);
 });
 
 
@@ -57,5 +70,40 @@ function clicked(button){
 
 function display(){
 
+  const displayButton = document.getElementById('display');
+
+  displayButton.disabled = true;
+
+  for(var i = 1; i <= 7; i++){
+    let numbersButtons = document.getElementById(`${i}`);
+    numbersButtons.disabled = true;
+  }
+
+
   socket.emit('display', room);
+}
+
+function newTopic(){
+
+  const displayButton = document.getElementById('display');
+
+  displayButton.disabled = false;
+
+  for(var i = 1; i <= 7; i++){
+    let numbersButtons = document.getElementById(`${i}`);
+    numbersButtons.disabled = false;
+  }
+}
+
+
+function populateUsers(userName, type, roomUsers){
+
+  if(typeof userName === 'undefined'){
+    console.log(username);
+  }
+  else{
+    console.log(userName);
+    console.log(type);
+    console.log(roomUsers);
+  }
 }
