@@ -61,6 +61,11 @@ io.on('connection', socket => {
       io.to(user.room).emit('getAllValues', users);
     });
 
+    socket.on('getUserList', () => {
+      const user = getCurrentUser(socket.id)
+      const roomUsers = getRoomUsers(user.room);
+      io.to(user.room).emit('userListRequest', roomUsers);
+    });
   });
 
 
@@ -75,7 +80,6 @@ io.on('connection', socket => {
       io.to(user.room).emit('userChange', {userName, type, roomUsers});
     }
   })
-
 })
 
 

@@ -1,7 +1,3 @@
-// const chatMessages = document.querySelector('.chat-messages');
-
-// const chatForm = document.getElementById('chat-form');
-
 const { username, room } = Qs.parse(location.search, {
   ignoreQueryPrefix: true
 });
@@ -12,9 +8,9 @@ window.addEventListener('load', function () {
 
   roomName.innerHTML = room;
 
-  populateUsers();
-
   socket.emit('joinRoom', {username, room})
+
+  socket.emit('getUserList');
   
 })
 
@@ -23,15 +19,13 @@ const socket = io();
 
 socket.on('getAllValues', (values) => {
 
-  var x = document.createElement("TABLE");
-  x.setAttribute("id", "myTable");
-
-  const container = document.getElementById('chat-container');
-
-  container.appendChild(x);
+  var x = document.getElementById("myTable");
 
 
   let count = 0;
+  removeAllChildNodes(x);
+
+  // Display Selected Values
   Object.entries(values).forEach(item => {
 
     var row = document.createElement("TR");
@@ -51,6 +45,12 @@ socket.on('getAllValues', (values) => {
   })
 
 })
+
+socket.on('userListRequest', (response) => {
+
+  populateUsers(response);
+
+});
 
 socket.on('message', message => {
 
@@ -99,11 +99,45 @@ function newTopic(){
 function populateUsers(userName, type, roomUsers){
 
   if(typeof userName === 'undefined'){
-    console.log(username);
+    console.log(userName);
   }
   else{
-    console.log(userName);
-    console.log(type);
-    console.log(roomUsers);
+    userList = document.getElementById("users");
+
+    Object.entries(roomUsers).forEach(item => { 
+
+      var userRow = document.createElement("li");
+      userRow.appendChild(document.createTextNode(item[1].username));
+
+      userList.appendChild(userRow);
+    });
+
+    console.log(userList);
+    
+  }
+}
+
+function populateUsers(roomUsers){
+
+  userList = document.getElementById("users");
+
+  removeAllChildNodes(userList)
+
+  Object.entries(roomUsers).forEach(item => { 
+
+    var userRow = document.createElement("li");
+    userRow.appendChild(document.createTextNode(item[1].username));
+
+    userList.appendChild(userRow);
+  });
+
+  console.log(userList);
+    
+  
+}
+
+function removeAllChildNodes(parent) {
+  while (parent.firstChild) {
+      parent.removeChild(parent.firstChild);
   }
 }
