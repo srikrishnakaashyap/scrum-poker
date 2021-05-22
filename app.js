@@ -4,7 +4,7 @@ const socketio = require('socket.io');
 const path = require('path');
 
 const {userJoin, getCurrentUser, userLeave, getRoomUsers} = require('./utils/users')
-const {valueJoin, getAllValuesInARoom, removeValue} = require('./utils/values')
+const {valueJoin, getAllValuesInARoom, removeValue, removeAllValuesInARoom} = require('./utils/values')
 const {roomExists, roomCreate, roomPasswordCheck} = require('./utils/rooms')
 
 const app = express();
@@ -59,6 +59,18 @@ io.on('connection', socket => {
     socket.on('display', (room) => {
       const users = getAllValuesInARoom(room);
       io.to(user.room).emit('getAllValues', users);
+    });
+
+    socket.on('newtopic', ()=> {
+
+      const user = getCurrentUser(socket.id);
+
+      let ans = removeAllValuesInARoom(user.room);
+
+      console.log(ans);
+
+      io.to(user.room).emit('clearDisplayedData', roomUsers);
+
     });
 
     socket.on('getUserList', () => {

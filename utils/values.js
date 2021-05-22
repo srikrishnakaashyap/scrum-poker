@@ -31,8 +31,24 @@ function removeValue(id) {
   }
 }
 
+function removeAllValuesInARoom(room){
+
+  const answer = values.filter(value => value.room === room);
+
+  console.log(answer);
+  for(let i = 0; i < answer.length; i++){
+    const index = values.indexOf(answer[i]);
+    if (index > -1) {
+      values.splice(index, 1);
+    }
+  }
+  return answer;
+
+}
+
 module.exports = {
   valueJoin,
   getAllValuesInARoom,
-  removeValue
+  removeValue,
+  removeAllValuesInARoom
 };

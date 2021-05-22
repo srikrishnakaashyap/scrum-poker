@@ -13,7 +13,7 @@ function setAction(form) {
   socket.emit('validate', {username, room, shouldCreateRoom, password}, (response) => {
 
     if(response === 200){
-      location.href = `chat.html?username=${username}&room=${room}`
+      location.href = `main.html?username=${username}&room=${room}`
     }
     else if(response === 401){
       alert(401);
@@ -22,7 +22,7 @@ function setAction(form) {
       alert(404);
     }
     else if(response === 202){
-      location.href = `chat.html?username=${username}&room=${room}`
+      location.href = `main.html?username=${username}&room=${room}`
     }
     else{
       alert("Server Not Responding")
