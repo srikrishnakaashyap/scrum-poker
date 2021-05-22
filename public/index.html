@@ -1,5 +1,7 @@
 <!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+<<<<<<< Updated upstream
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -40,29 +42,94 @@
 							required
 						/>
 					</div>
+=======
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap" rel="stylesheet">
 
-					<div class="form-control">
-						<label for="password">Password</label>
-						<input 
-							type="password"
-							name="password"
-							id="password"
-							placeholder="Enter A Password"
+    <link rel="stylesheet" href="fonts/icomoon/style.css">
+
+    <link rel="stylesheet" href="css/owl.carousel.min.css">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    
+    <!-- Style -->
+    <link rel="stylesheet" href="css/style.css">
+	
+>>>>>>> Stashed changes
+
+    <title>Scrum Poker</title>
+  </head>
+  <body>
+  
+
+  
+  <div class="content">
+    <div class="container">
+      <div class="row justify-content-center">
+        <!-- <div class="col-md-6 order-md-2">
+          <img src="images/undraw_file_sync_ot38.svg" alt="Image" class="img-fluid">
+        </div> -->
+        <div class="col-md-6 contents">
+          <div class="row justify-content-center">
+            <div class="col-md-12">
+              <div class="form-block">
+                  <div class="mb-4">
+                  <h3>Sign In to <strong style="color:#38d39f;">Scrum Poker</strong></h3>
+                  </div>
+				
+                <form id="form" onsubmit="return setAction(this)" >
+                  <div class="form-group first">
+                    <label for="username"></label>
+                    <input type="text" class="form-control" id="username" placeholder="Enter Username"
 							required
-						/>
-					</div>
+							/>
 
-					<div class="form-control">
+                  </div>
+                  <div class="form-group last mb-4">
+                    <label for="room"></label>
+                    <input type="text" class="form-control" id="room" placeholder="Room"
+					 required 
+					/>
+                    
+                  </div>
+				  <div class="form-group last mb-4">
+                    <label for="password"></label>
+                    <input type="password" class="form-control" id="password" placeholder="Enter Password" style="font-size: small;" required
+					/>
+                    
+                  </div>
+                  
+                  <div class="d-flex mb-5 align-items-center">
+                    <label class="control control--checkbox mb-0"><span class="caption">Create a room</span>
+                      <input type="checkbox" id="shouldCreateRoom" name="shouldCreateRoom" 
+					  />
+                      <div class="control__indicator"></div>
+                    </label>
+                  </div>
 
-						<input type="checkbox" id="shouldCreateRoom" name="shouldCreateRoom">
-						<label for="shouldCreateRoom">Create a Room</label>
-					</div>
-					<button type="submit" class="btn">Join Chat</button>
-				</form>
+                  <input style="color:#38d39f;" type="submit"  class="btn btn-pill text-white btn-block btn-primary">
+
+                 
+				 <style>
+					 input {
+						width: 400px;
+						padding: 0 20px;
+						font-size: 14px;
+					}
+
+					input,
+					input::-webkit-input-placeholder {
+						font-size: 12px;
+						line-height: 3;
+					}
+				 </style>
+                </form>
 			</main>
 		</div>
-
-
 		<script src="/socket.io/socket.io.js"></script>
 		<script src="js/index.js"></script>
 	</body>

@@ -19,7 +19,12 @@ const socket = io();
 
 socket.on('getAllValues', (values) => {
 
+<<<<<<< Updated upstream
   var x = document.getElementById("myTable");
+=======
+  var x = document.getElementById("myTable").tHead.innerHTML;
+  
+>>>>>>> Stashed changes
 
 
   let count = 0;
@@ -42,6 +47,7 @@ socket.on('getAllValues', (values) => {
     document.getElementById(`myTr${count}`).appendChild(userCol);
     document.getElementById(`myTr${count}`).appendChild(valueCol);
     count = count + 1;
+	
   })
 
 })
