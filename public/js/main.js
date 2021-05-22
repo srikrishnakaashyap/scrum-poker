@@ -64,6 +64,15 @@ socket.on('userChange', ({userName, type, roomUsers}) => {
   populateUsers(userName, type, roomUsers);
 });
 
+socket.on('clearDisplayedData', () => {
+  clearDisplayTable();
+});
+
+function clearDisplayTable(){
+  var x = document.getElementById("myTable");
+  clearTable(x);
+}
+
 
 function clicked(button){
   button = button.toString();
@@ -95,6 +104,8 @@ function newTopic(){
     let numbersButtons = document.getElementById(`${i}`);
     numbersButtons.disabled = false;
   }
+
+  socket.emit('newtopic');
 }
 
 
@@ -139,7 +150,19 @@ function populateUsers(roomUsers){
 }
 
 function removeAllChildNodes(parent) {
+
   while (parent.firstChild) {
-      parent.removeChild(parent.firstChild);
+    console.log(parent.firstChild);
+    parent.removeChild(parent.firstChild);
+  }
+}
+
+function clearTable(table) {
+  var rows = table.rows;
+  var i = rows.length;
+  while (--i) {
+    rows[i].parentNode.removeChild(rows[i]);
+    // or
+    // table.deleteRow(i);
   }
 }
