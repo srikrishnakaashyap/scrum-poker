@@ -1,34 +1,191 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    
+      
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
+    <!-- <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css"
       integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk="
       crossorigin="anonymous"
-    />
+    /> -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="css/style.css" />
-    <title>ChatCord App</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <title>Scrum Poker</title>
   </head>
   <body>
-    <div id="chat-container" class="chat-container">
-      <header class="chat-header">
-        <h1><i class="fas fa-smile"></i> Data Pirates</h1>
-        <a href="index.html" class="btn">Leave Room</a>
-      </header>
-      <button onclick="display()">Display</button>
-      <button onclick="">New Topic</button>
-      <div class="buttons-flex">
-        <button class="emgAoH" value="1" onclick="clicked(value)">1</button>
-        <button class="emgAoH" value="2" onclick="clicked(value)">2</button>
-        <button class="emgAoH" value="3" onclick="clicked(value)">3</button>
-        <button class="emgAoH" value="5" onclick="clicked(value)">5</button>
-        <button class="emgAoH" value="8" onclick="clicked(value)">8</button>
-        <button class="emgAoH" value="13" onclick="clicked(value)">13</button>
-        <button class="emgAoH" value="21" onclick="clicked(value)">21</button>
+    <nav style="padding: 5px 15px;" class="navbar navbar-inverse">
+      <div  class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" style="color:white;" href="#">Scrum Poker</a> 
+        </div>
+        <ul class="nav navbar-nav">
+          
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+          <li><a href="index.html"><span class="glyphicon glyphicon-log-in"></span> Leave Room</a></li>
+          <li><span style="font-size:30px; color: white; cursor:pointer; width: 35px; height: 5px;" onclick="openNav()">&#9776;</span></li>
+        </ul>
       </div>
+    </nav>
+    
+    
+    <div id="mySidenav" class="sidenav">
+      <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+     
+      <a  style="font-size: 20px;" href="#about">About</a>
+      <a  style="font-size: 20px;" href="#about">Room</a>
+      <ul style="font-size: 16px; color: white; padding: 8px 8px 8px 32px;" id="room-name" ></ul>
+      
+      <a href="#clients">Users</a>
+      <ul style="font-size: 16px; color: white; padding: 8px 8px 8px 32px;" id="users"></ul>
+      
+    </div>
+    <div id="container" class="chat-container">
+      <hr><header class="header">
+        <h1><i class=></i> Welcome to <strong> <b> Scrum Poker </b></strong>
+        
+      </h1>
+    </header>
+      <hr>
+      <br>
+      <button  class="butn" id="display" onclick="display()">Display</button>
+      <button  class="butn " onclick="newTopic()">New Topic</button>
+      <button class="butn" type="reset" value="Refresh Page" onClick="window.location.reload()">Refresh
+      </button>
+     
+      <div class="buttons-flex">
+        <button id="1" class="theButton" value="1" onclick="clicked(value)">1</button>
+        <button id="2" class="theButton" value="2" onclick="clicked(value)">2</button>
+        <button id="3" class="theButton" value="3" onclick="clicked(value)">3</button>
+        <button id="4" class="theButton" value="5" onclick="clicked(value)">5</button>
+        <button id="5" class="theButton" value="8" onclick="clicked(value)">8</button>
+        <button id="6" class="theButton" value="13" onclick="clicked(value)">13</button>
+        <button id="7" class="theButton" value="21" onclick="clicked(value)">21</button>
+      </div>
+     
+      <br>
+      <br>
+      <br>
+      <br>
+      <table id="myTable" class="table.center" style="width:100%"> 
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Select</th>
+          </tr>
+        </thead></table>
+
+      <style>
+        table {
+          
+          border: 1px solid black;
+          border-collapse: collapse;
+          font-family: Arial, Helvetica, sans-serif;
+          width: 100%;
+          text-align: center;
+        }
+        td, th {border: 1px solid #ddd;
+           padding: 8px;}
+        table.center {
+          margin-left: auto;
+          margin-right: auto;
+        }
+        th, td {
+          padding: 10px;
+        }
+        
+        tr:nth-child(even)
+        {background-color: #f2f2f2;
+        }
+        tr:hover {background-color: #ddd;}
+        th {
+          
+          padding-top: 12px;
+          padding-bottom: 12px;
+          text-align: center;
+          background-color: #1a5246;
+          color: white;
+        }
+      </style>
+      <style>
+        body {
+          font-family: "Lato", sans-serif;
+        }
+        
+        .sidenav {
+          height: 100%;
+          width: 0;
+          position: fixed;
+          z-index: 1;
+          top: 0;
+          right: 0;
+          background-color: #111;
+          overflow-x: hidden;
+          transition: 0.5s;
+          padding-top: 60px;
+        }
+        
+        .sidenav a {
+          padding: 8px 8px 8px 32px;
+          text-decoration: none;
+          font-size: 25px;
+          color: #818181;
+          display: block;
+          transition: 0.3s;
+        }
+        
+        .sidenav a:hover {
+          color: #f1f1f1;
+        }
+        
+        .sidenav .closebtn {
+          position: absolute;
+          top: 0;
+          right: 25px;
+          font-size: 36px;
+          margin-left: 50px;
+        }
+        
+        @media screen and (max-height: 450px) {
+          .sidenav {padding-top: 15px;}
+          .sidenav a {font-size: 18px;}
+        }
+        </style>
+         <style>
+          .butn {
+           
+
+
+            border: none;
+            color: white;
+            padding: 6px 12px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 14px;
+            margin: 4px 2px;
+            border-radius: 40px;
+            transition-duration: 0.4s;
+            cursor: pointer;
+            background-color: white;
+            color: black;
+            border: 2px solid #555555;
+          }
+          
+          .butn:hover {
+            background-color: #555555;
+            color: white;
+          }
+          </style>
+     
     </div>
     <script
       src="https://cdnjs.cloudflare.com/ajax/libs/qs/6.10.1/qs.min.js"
@@ -37,5 +194,21 @@
     ></script>
     <script src="/socket.io/socket.io.js"></script>
     <script src="js/main.js"></script>
+    <script>
+      function openNav() {
+      document.getElementById("mySidenav").style.width = "250px";
+      document.getElementById("main").style.marginLeft = "250px";
+    }
+
+    function closeNav() {
+      document.getElementById("mySidenav").style.width = "0";
+      document.getElementById("main").style.marginLeft= "0";
+}
+    </script>
+
   </body>
+</html>
+
+
+</body>
 </html>

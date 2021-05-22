@@ -44,9 +44,14 @@ io.on('connection', socket => {
 
     socket.emit('message', 'Welcome to Scrum Poker');
 
-    socket.broadcast.to(user.room).emit('message', `${user.username} has joined the room`);
+    const roomUsers = getRoomUsers(user.room);
+    const type = 1;
+    const userName = user.username;
+    socket.broadcast.to(user.room).emit('userChange', {userName, type, roomUsers});
   
     socket.on('selected', ({username, room, button}) => {
+
+      console.log(button);
 
       const value = valueJoin(socket.id, username, room, button)
     });
@@ -56,6 +61,11 @@ io.on('connection', socket => {
       io.to(user.room).emit('getAllValues', users);
     });
 
+    socket.on('getUserList', () => {
+      const user = getCurrentUser(socket.id)
+      const roomUsers = getRoomUsers(user.room);
+      io.to(user.room).emit('userListRequest', roomUsers);
+    });
   });
 
 
@@ -64,10 +74,12 @@ io.on('connection', socket => {
     const user = userLeave(socket.id);
     if(user){
       const value = removeValue(socket.id);
-      io.to(user.room).emit('message', `${user.username} has left the room`);
+      const roomUsers = getRoomUsers(user.room);
+      const type = 0;
+      const userName = user.username
+      io.to(user.room).emit('userChange', {userName, type, roomUsers});
     }
   })
-
 })
 
 
