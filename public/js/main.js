@@ -19,12 +19,8 @@ const socket = io();
 
 socket.on('getAllValues', (values) => {
 
-<<<<<<< Updated upstream
-  var x = document.getElementById("myTable");
-=======
   var x = document.getElementById("myTable").tHead.innerHTML;
   
->>>>>>> Stashed changes
 
 
   let count = 0;
