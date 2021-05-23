@@ -8,9 +8,18 @@ function roomExists(roomId){
 
 }
 
-function roomCreate(roomId, password){
+function getRoomName(roomId){
 
-  const room = {roomId, password};
+  const room =  rooms.find(r => r.roomId == roomId);
+
+  return room.room_name;
+
+
+}
+
+function roomCreate(roomId, room_name, password){
+
+  const room = {roomId, room_name, password};
 
   rooms.push(room);
   console.log(rooms);
@@ -34,5 +43,6 @@ function roomPasswordCheck(roomId, password){
 module.exports = {
   roomPasswordCheck,
   roomCreate,
-  roomExists
+  roomExists,
+  getRoomName
 }

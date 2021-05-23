@@ -5,7 +5,7 @@ const path = require('path');
 
 const {userJoin, getCurrentUser, userLeave, getRoomUsers} = require('./utils/users')
 const {valueJoin, getAllValuesInARoom, removeValue, removeAllValuesInARoom} = require('./utils/values')
-const {roomExists, roomCreate, roomPasswordCheck} = require('./utils/rooms')
+const {roomExists, roomCreate, roomPasswordCheck, getRoomName} = require('./utils/rooms')
 
 const app = express();
 const server = http.createServer(app);
@@ -15,24 +15,30 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 io.on('connection', socket => {
 
-  socket.on('validate', ({username, room, shouldCreateRoom, password}, callback) => {
+  socket.on('validate', ({username, room, room_name, shouldCreateRoom, password}, callback) => {
 
     if(!shouldCreateRoom){
       if(roomExists(room)){
         if(roomPasswordCheck(room, password)){
-          callback(200)
+          let roomName = getRoomName(room);
+          let response = {"status": 200, "room_name": roomName};
+
+          callback(response)
         }
         else{
-          callback(401)
+          let response = {"status": 401}
+          callback(response)
         }
       }
       else{
-        callback(404)
+        let response = {"status": 404}
+        callback(response)
       }
     }
     else{
-      roomCreate(room, password)
-      callback(202)
+      roomCreate(room, room_name, password)
+      let response = {"status": 202, "room_name": room_name};
+      callback(response)
     }
   })
 
