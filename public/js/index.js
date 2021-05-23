@@ -14,7 +14,7 @@ function setAction(form) {
   socket.emit('validate', {username, room, room_name, shouldCreateRoom, password}, (response) => {
 
     if(response.status === 200){
-      location.href = `main.html?username=${username}&room=${room}&room_name=${response.room_name}`
+      location.href = `main.html?username=${response.username}&room=${response.room}&room_name=${response.room_name}`
     }
     else if(response.status === 401){
       alert(401);
@@ -23,7 +23,7 @@ function setAction(form) {
       alert(404);
     }
     else if(response.status === 202){
-      location.href = `main.html?username=${username}&room=${room}&room_name=${response.room_name}`
+      location.href = `main.html?username=${response.username}&room=${response.room}&room_name=${response.room_name}`
     }
     else{
       alert("Server Not Responding")

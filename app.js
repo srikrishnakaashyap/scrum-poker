@@ -21,7 +21,7 @@ io.on('connection', socket => {
       if(roomExists(room)){
         if(roomPasswordCheck(room, password)){
           let roomName = getRoomName(room);
-          let response = {"status": 200, "room_name": roomName};
+          let response = {"status": 200, "room_name": roomName, "room": room, "username": username};
 
           callback(response)
         }
@@ -37,7 +37,7 @@ io.on('connection', socket => {
     }
     else{
       roomCreate(room, room_name, password)
-      let response = {"status": 202, "room_name": room_name};
+      let response = {"status": 202, "room_name": room_name, "room": room, "username": username};
       callback(response)
     }
   })
