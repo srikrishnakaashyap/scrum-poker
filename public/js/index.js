@@ -2,6 +2,7 @@ const socket = io();
 
 function setAction(form) {
   let username = document.getElementById('username').value;
+  let room_name = document.getElementById('room_name').value;
   let room = document.getElementById('room').value;
   let shouldCreateRoom = document.getElementById('shouldCreateRoom').checked;
   let password = document.getElementById('password').value;
@@ -10,19 +11,19 @@ function setAction(form) {
     room = randomNumber();
   }
 
-  socket.emit('validate', {username, room, shouldCreateRoom, password}, (response) => {
+  socket.emit('validate', {username, room, room_name, shouldCreateRoom, password}, (response) => {
 
-    if(response === 200){
-      location.href = `main.html?username=${username}&room=${room}`
+    if(response.status === 200){
+      location.href = `main.html?username=${username}&room=${room}&room_name=${response.room_name}`
     }
-    else if(response === 401){
+    else if(response.status === 401){
       alert(401);
     }
-    else if(response === 404){
+    else if(response.status === 404){
       alert(404);
     }
-    else if(response === 202){
-      location.href = `main.html?username=${username}&room=${room}`
+    else if(response.status === 202){
+      location.href = `main.html?username=${username}&room=${room}&room_name=${response.room_name}`
     }
     else{
       alert("Server Not Responding")

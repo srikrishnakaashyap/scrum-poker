@@ -1,4 +1,4 @@
-const { username, room } = Qs.parse(location.search, {
+const { username, room, room_name } = Qs.parse(location.search, {
   ignoreQueryPrefix: true
 });
 
@@ -6,7 +6,7 @@ window.addEventListener('load', function () {
 
   const roomName = document.getElementById("room-name");
 
-  roomName.innerHTML = room;
+  roomName.innerHTML = room_name;
 
   socket.emit('joinRoom', {username, room})
 
